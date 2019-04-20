@@ -1,6 +1,7 @@
 $.getJSON("/articles", function (data) {
     for (var i = 0; i < data.length; i++) {
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br /></p>");
+        $("#articles").append("<a href=" + data[i].link + ">Link</a>" )
     }
 });
 
@@ -15,7 +16,9 @@ $(document).on("click", "p", function () {
         .then(function (data) {
             console.log(data);
             $("#notes").append("<h2>" + data.title + "</h2>");
+            $("#notes").append("<h6>Title</h6>")
             $("#notes").append("<input id='titleinput' name='title' >");
+            $("#notes").append("<h6>Comment</h6>")
             $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
             $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 

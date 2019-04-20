@@ -77,23 +77,17 @@ app.get("/articles", function(req, res) {
   });
   
   app.post("/articles/:id", function(req, res) {
-    db.Note.create(req.body).then(function(note){
-      console.log(req.params.id)
-      return db.Article.findOneAndUpdate({
-        query: {_id: req.params.id},
-        update: { $set: { note: {
-          title: note.title,
-          body: note.body
-        } } }
-        
-      }).then(function(data){
-        console.log(data)
-        res.json(data)
+    db.Note.create(req.body)
+      .then(function(dbNote) {
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
       })
-      
-  
-    })
-  })
+      .then(function(dbArticle) {
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
 
 app.listen(3000, function () {
     console.log("App running on port 3000!");
