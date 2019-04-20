@@ -30,10 +30,6 @@ mongoose.connect("mongodb://localhost/14-news", { useNewUrlParser: true });
 // });
 
 app.get("/", function (req, res) {
-    res.render("index.html");
-});
-
-app.get("/scrape", function (req, res) {
     axios.get("https://www.theonion.com/").then(function (response) {
         var $ = cheerio.load(response.data);
         $(".content-wrapper").each(function (i, element) {
@@ -50,10 +46,32 @@ app.get("/scrape", function (req, res) {
                     console.log(err);
                 });
 
-        })
-        res.send("Scrape Complete");
+    })
+    res.render("index.html");
     })
 });
+
+// app.get("/scrape", function (req, res) {
+//     axios.get("https://www.theonion.com/").then(function (response) {
+//         var $ = cheerio.load(response.data);
+//         $(".content-wrapper").each(function (i, element) {
+//             var result = {}
+//             result.title = $(this).find(".content-meta__headline__wrapper").children().children().text()
+//             result.link = $(this).find(".content-meta__headline__wrapper").children().children("a").attr("href")
+//             console.log(result)
+
+//             db.Article.create(result)
+//                 .then(function (dbArticle) {
+//                     console.log(dbArticle);
+//                 })
+//                 .catch(function (err) {
+//                     console.log(err);
+//                 });
+
+//         })
+//         res.send("Scrape Complete");
+//     })
+// });
 
 app.get("/articles", function(req, res) {
     db.Article.find({}).then(function(data){
