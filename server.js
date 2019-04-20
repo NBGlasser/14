@@ -5,6 +5,10 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
+
 
 var db = require("./models");
 
@@ -21,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/14-news", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/14-news", { useNewUrlParser: true });
 
 
 // var db = mongojs(databaseURL, collections)
