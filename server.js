@@ -6,13 +6,14 @@ var cheerio = require("cheerio");
 var mongoose = require("mongoose");
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true });
 mongoose.connect(MONGODB_URI);
 
 
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 var app = express();
 app.use(logger("dev"));
