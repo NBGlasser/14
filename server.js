@@ -58,7 +58,9 @@ app.get("/", function (req, res) {
                 });
 
     })
-    res.sendFile(path.join(__dirname + "/index.html"));
+    })
+    .then(function() {
+      res.sendFile(path.join(__dirname + "/index.html"));
     })
     .catch(function(err){
       res.json(err)
