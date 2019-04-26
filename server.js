@@ -37,6 +37,7 @@ app.use(express.static("public"));
 app.get("/", function (req, res) {
     axios.get("https://www.theonion.com/").then(function (response) {
         var $ = cheerio.load(response.data);
+        console.log(response.data);
         $(".content-wrapper").each(function (i, element) {
             var result = {}
             result.title = $(this).find(".content-meta__headline__wrapper").children().children().text()
@@ -46,14 +47,20 @@ app.get("/", function (req, res) {
             db.Article.create(result)
                 .then(function (dbArticle) {
                     console.log(dbArticle);
+
+                    res.render("index");
                 })
                 .catch(function (err) {
                     console.log(err);
                 });
 
     })
-    res.render("index.html");
+    
     })
+    .catch(function(err){
+      console.log(err)
+    })
+    // res.send("my name is Noah");
 });
 
 // app.get("/scrape", function (req, res) {
@@ -79,6 +86,7 @@ app.get("/", function (req, res) {
 // });
 
 app.get("/articles", function(req, res) {
+  // res.send("LOL");
     db.Article.find({}).then(function(data){
       res.json(data)
     })
