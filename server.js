@@ -6,12 +6,6 @@ var cheerio = require("cheerio");
 var mongoose = require("mongoose");
 var path = require("path");
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true });
-// mongoose.connect(MONGODB_URI);
-
-
 var db = require("./models");
 
 var PORT = process.env.PORT || 3000;
@@ -29,6 +23,10 @@ app.use(express.static("public"));
 
 // mongoose.connect("mongodb://localhost/14-news", { useNewUrlParser: true });
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true });
+// mongoose.connect(MONGODB_URI);
 
 // var db = mongojs(databaseURL, collections)
 // db.on("error", function (error) {
