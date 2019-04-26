@@ -4,6 +4,7 @@ var logger = require("morgan");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
+var path = require("path");
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.Promise = Promise;
@@ -48,7 +49,8 @@ app.get("/", function (req, res) {
                 .then(function (dbArticle) {
                     console.log(dbArticle);
 
-                    res.render("index");
+                    res.sendFile(path.join(__dirname + "/index.html"));
+                    // res.render("index");
                 })
                 .catch(function (err) {
                     res.json(err);
@@ -62,6 +64,10 @@ app.get("/", function (req, res) {
     })
     // res.send("my name is Noah");
 });
+
+// app.get("/home", function(req, res){
+//   res.render("index");
+// })
 
 // app.get("/scrape", function (req, res) {
 //     axios.get("https://www.theonion.com/").then(function (response) {
