@@ -5,11 +5,11 @@ var ArtSchema = new Schema({
 
     title: {
         type: String,
-        required: true
+        required: false
     },
     link: {
       type: String,
-      required: true
+      required: false
     },
     note: {
         type: Schema.Types.ObjectId,

@@ -50,7 +50,7 @@ app.get("/", function (req, res) {
 
                     // res.redirect("/home");
 
-                    res.sendFile(path.join(__dirname + "/index.html"));
+                    // res.sendFile(path.join(__dirname + "/index.html"));
                     // res.render("index");
                 })
                 .catch(function (err) {
@@ -58,7 +58,7 @@ app.get("/", function (req, res) {
                 });
 
     })
-    
+    res.sendFile(path.join(__dirname + "/index.html"));
     })
     .catch(function(err){
       res.json(err)
