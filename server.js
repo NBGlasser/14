@@ -51,14 +51,14 @@ app.get("/", function (req, res) {
                     res.render("index");
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    res.json(err);
                 });
 
     })
     
     })
     .catch(function(err){
-      console.log(err)
+      res.json(err)
     })
     // res.send("my name is Noah");
 });
