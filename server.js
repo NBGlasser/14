@@ -9,7 +9,7 @@ var path = require("path");
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true });
-mongoose.connect(MONGODB_URI);
+// mongoose.connect(MONGODB_URI);
 
 
 var db = require("./models");
@@ -20,8 +20,8 @@ var app = express();
 app.use(logger("dev"));
 
 
-databaseURL = "articledb"
-collections = ["articles"]
+// databaseURL = "articledb"
+// collections = ["articles"]
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -36,6 +36,7 @@ app.use(express.static("public"));
 // });
 
 app.get("/", function (req, res) {
+  console.log("Hi, i'm the backend root route");
     axios.get("https://www.theonion.com/").then(function (response) {
         var $ = cheerio.load(response.data);
         console.log(response.data);
@@ -48,6 +49,8 @@ app.get("/", function (req, res) {
             db.Article.create(result)
                 .then(function (dbArticle) {
                     console.log(dbArticle);
+
+                    // res.redirect("/home");
 
                     res.sendFile(path.join(__dirname + "/index.html"));
                     // res.render("index");
@@ -65,9 +68,9 @@ app.get("/", function (req, res) {
     // res.send("my name is Noah");
 });
 
-// app.get("/home", function(req, res){
-//   res.render("index");
-// })
+app.get("/home", function(req, res){
+  res.sendFile(path.join(__dirname + "/public/index.html"));
+})
 
 // app.get("/scrape", function (req, res) {
 //     axios.get("https://www.theonion.com/").then(function (response) {
